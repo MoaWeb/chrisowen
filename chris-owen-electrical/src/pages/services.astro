@@ -120,11 +120,38 @@ const services = [
       <div class="grid grid-cols-1 gap-16">
         {services.map((service, index) => (
           <div id={service.id} class="scroll-mt-24">
-            <div class={`grid grid-cols-1 lg:grid-cols-2 gap-8 ${index % 2 === 1 ? 'lg:flex-row-reverse' : ''} ${
+            <div class={`grid grid-cols-1 lg:grid-cols-2 gap-8 ${
               (service.id === 'residential' || service.id === 'emergency' || service.id === 'renovations') 
                 ? 'bg-primary text-white p-8 rounded-lg' 
                 : ''
             }`}>
+              {(service.id === 'commercial' || service.id === 'lighting' || service.id === 'inspections') && (
+                <div class="rounded-lg overflow-hidden shadow-xl h-[400px]">
+                  {service.id === 'commercial' ? (
+                    <img 
+                      src="/images/commercial_services.jpg" 
+                      alt="Commercial Electrical Services" 
+                      class="w-full h-full object-cover"
+                      style="image-rendering: -webkit-optimize-contrast; -webkit-backface-visibility: hidden; backface-visibility: hidden; transform: translateZ(0);"
+                    />
+                  ) : service.id === 'lighting' ? (
+                    <img 
+                      src="/images/lighting_solutions.jpg" 
+                      alt="Lighting Solutions" 
+                      class="w-full h-full object-cover"
+                      style="image-rendering: -webkit-optimize-contrast; -webkit-backface-visibility: hidden; backface-visibility: hidden; transform: translateZ(0);"
+                    />
+                  ) : (
+                    <img 
+                      src="/images/inspection_services.jpg" 
+                      alt="Electrical Inspections & Testing" 
+                      class="w-full h-full object-cover"
+                      style="image-rendering: -webkit-optimize-contrast; -webkit-backface-visibility: hidden; backface-visibility: hidden; transform: translateZ(0);"
+                    />
+                  )}
+                </div>
+              )}
+
               <div class="flex flex-col justify-center">
                 <h2 class="text-3xl font-bold mb-4 ${(service.id === 'residential' || service.id === 'emergency' || service.id === 'renovations') ? 'text-white' : 'text-gray-900'}">{service.title}</h2>
                 <p class="text-lg ${(service.id === 'residential' || service.id === 'emergency' || service.id === 'renovations') ? 'text-white' : 'text-gray-600'} mb-6">{service.description}</p>
@@ -145,14 +172,32 @@ const services = [
                 </div>
               </div>
               
-              <div class="rounded-lg overflow-hidden shadow-xl h-[400px]">
-                <LazyPlaceholder 
-                  text={service.title}
-                  bgColor={index % 2 === 0 ? "#E5E7EB" : "#D1D5DB"}
-                  textColor="#4B5563"
-                  className="w-full h-full object-cover"
-                />
-              </div>
+              {(service.id === 'residential' || service.id === 'emergency' || service.id === 'renovations') && (
+                <div class="rounded-lg overflow-hidden shadow-xl h-[400px]">
+                  {service.id === 'residential' ? (
+                    <img 
+                      src="/images/residential_services.jpg" 
+                      alt="Residential Electrical Services" 
+                      class="w-full h-full object-cover"
+                      style="image-rendering: -webkit-optimize-contrast; -webkit-backface-visibility: hidden; backface-visibility: hidden; transform: translateZ(0);"
+                    />
+                  ) : service.id === 'emergency' ? (
+                    <img 
+                      src="/images/emergency_services.jpg" 
+                      alt="Emergency Electrical Services" 
+                      class="w-full h-full object-cover"
+                      style="image-rendering: -webkit-optimize-contrast; -webkit-backface-visibility: hidden; backface-visibility: hidden; transform: translateZ(0);"
+                    />
+                  ) : (
+                    <img 
+                      src="/images/renovation_services.jpg" 
+                      alt="Renovation & New Build Electrical" 
+                      class="w-full h-full object-cover"
+                      style="image-rendering: -webkit-optimize-contrast; -webkit-backface-visibility: hidden; backface-visibility: hidden; transform: translateZ(0);"
+                    />
+                  )}
+                </div>
+              )}
             </div>
             
             {index < services.length - 1 && (
