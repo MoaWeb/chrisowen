@@ -5,6 +5,8 @@ import tailwind from '@astrojs/tailwind';
 // https://astro.build/config
 export default defineConfig({
   integrations: [tailwind()],
-  site: 'https://chrisowenelectrical.com',
+  site: 'https://MoaWeb.github.io',
+  base: '/chrisowen',
+
   compressHTML: true,
 });
