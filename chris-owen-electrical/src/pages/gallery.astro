@@ -1,0 +1,185 @@
+---
+import Layout from '../layouts/Layout.astro';
+import LazyPlaceholder from '../components/LazyPlaceholder.astro';
+
+// Gallery categories
+const categories = [
+  { id: 'all', name: 'All Projects' },
+  { id: 'residential', name: 'Residential' },
+  { id: 'commercial', name: 'Commercial' },
+  { id: 'lighting', name: 'Lighting' },
+  { id: 'renovations', name: 'Renovations' }
+];
+
+// Gallery items (placeholder data)
+const galleryItems = [
+  {
+    id: 1,
+    title: 'Kitchen Lighting Upgrade',
+    description: 'Modern LED lighting installation in a residential kitchen.',
+    category: 'residential lighting',
+    image: '/images/gallery/kitchen-lighting.jpg'
+  },
+  {
+    id: 2,
+    title: 'Office Electrical Fit-out',
+    description: 'Complete electrical installation for a new office space.',
+    category: 'commercial',
+    image: '/images/gallery/office-fitout.jpg'
+  },
+  {
+    id: 3,
+    title: 'Home Renovation Wiring',
+    description: 'Full rewiring project for a home renovation.',
+    category: 'residential renovations',
+    image: '/images/gallery/home-renovation.jpg'
+  },
+  {
+    id: 4,
+    title: 'Outdoor Security Lighting',
+    description: 'Security lighting installation for a commercial property.',
+    category: 'commercial lighting',
+    image: '/images/gallery/security-lighting.jpg'
+  },
+  {
+    id: 5,
+    title: 'Switchboard Upgrade',
+    description: 'Modern switchboard upgrade for improved safety and capacity.',
+    category: 'residential',
+    image: '/images/gallery/switchboard.jpg'
+  },
+  {
+    id: 6,
+    title: 'Retail Store Lighting',
+    description: 'Custom lighting design for a retail environment.',
+    category: 'commercial lighting',
+    image: '/images/gallery/retail-lighting.jpg'
+  },
+  {
+    id: 7,
+    title: 'New Home Electrical',
+    description: 'Complete electrical installation for a new build home.',
+    category: 'residential renovations',
+    image: '/images/gallery/new-home.jpg'
+  },
+  {
+    id: 8,
+    title: 'Restaurant Power Systems',
+    description: 'Specialized electrical systems for a restaurant kitchen.',
+    category: 'commercial',
+    image: '/images/gallery/restaurant.jpg'
+  },
+  {
+    id: 9,
+    title: 'Bathroom Renovation',
+    description: 'Electrical work for a bathroom renovation including heated floors.',
+    category: 'residential renovations',
+    image: '/images/gallery/bathroom.jpg'
+  }
+];
+---
+
+<Layout title="Project Gallery | Chris Owen Electrical" description="View our portfolio of completed electrical projects in Christchurch, including residential and commercial electrical work.">
+  <!-- Page Header -->
+  <div class="bg-primary text-white py-12">
+    <div class="container">
+      <h1 class="text-4xl font-bold mb-4">Project Gallery</h1>
+      <p class="text-xl max-w-3xl">
+        Browse through our portfolio of completed electrical projects to see the quality of our work.
+      </p>
+    </div>
+  </div>
+
+  <!-- Gallery Section -->
+  <section class="py-16 bg-base-100">
+    <div class="container">
+      <!-- Filter Buttons -->
+      <div class="flex flex-wrap justify-center gap-2 mb-12">
+        {categories.map(category => (
+          <button 
+            class="filter-btn btn btn-sm md:btn-md btn-outline hover:bg-primary hover:text-white transition-colors" 
+            data-filter={category.id}
+          >
+            {category.name}
+          </button>
+        ))}
+      </div>
+
+      <!-- Gallery Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="gallery-grid">
+        {galleryItems.map(item => (
+          <div class="gallery-item" data-category={item.category}>
+            <div class="card bg-base-100 shadow-xl h-full flex flex-col">
+              <figure class="h-64">
+                <LazyPlaceholder 
+                  text={item.title}
+                  bgColor={item.category.includes('residential') ? "#A7C2E6" : "#F3D49F"}
+                  textColor="#4B5563"
+                  className="w-full h-full object-cover"
+                />
+              </figure>
+              <div class="card-body p-6 md:p-8 flex flex-col flex-grow">
+                <h3 class="card-title text-lg mb-2">{item.title}</h3>
+                <p class="text-gray-600 px-1">{item.description}</p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-20 bg-primary text-white">
+    <div class="container text-center">
+      <h2 class="text-3xl font-bold mb-4">Ready to Start Your Project?</h2>
+      <p class="text-xl mb-8 max-w-2xl mx-auto">
+        Contact us today to discuss your electrical needs and get a free quote.
+      </p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <a href="/contact" class="btn btn-secondary">Get a Free Quote</a>
+        <a href="/services" class="btn btn-outline border-white text-white hover:bg-white hover:text-primary">
+          View Our Services
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  // Gallery filtering functionality
+  document.addEventListener('DOMContentLoaded', () => {
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const galleryItems = document.querySelectorAll('.gallery-item');
+    
+    // Set "All Projects" as active by default
+    const allButton = document.querySelector('[data-filter="all"]');
+    allButton?.classList.add('btn-primary');
+    allButton?.classList.remove('btn-outline');
+    
+    filterButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        // Update active button styling
+        filterButtons.forEach(btn => {
+          btn.classList.remove('btn-primary');
+          btn.classList.add('btn-outline');
+        });
+        button.classList.add('btn-primary');
+        button.classList.remove('btn-outline');
+        
+        const filter = button.getAttribute('data-filter') || '';
+        
+        galleryItems.forEach(item => {
+          const itemCategory = item.getAttribute('data-category') || '';
+          const htmlItem = item as HTMLElement;
+          
+          if (filter === 'all' || itemCategory.includes(filter)) {
+            htmlItem.style.display = 'block';
+          } else {
+            htmlItem.style.display = 'none';
+          }
+        });
+      });
+    });
+  });
+</script> 

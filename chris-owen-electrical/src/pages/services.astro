@@ -1,0 +1,182 @@
+---
+import Layout from '../layouts/Layout.astro';
+import LazyPlaceholder from '../components/LazyPlaceholder.astro';
+
+// Services data
+const services = [
+  {
+    id: 'residential',
+    title: 'Residential Electrical Services',
+    description: 'Complete electrical solutions for your home, from repairs to full installations.',
+    image: '/images/residential.jpg',
+    features: [
+      'Electrical installations and repairs',
+      'Lighting design and installation',
+      'Power point installation',
+      'Switchboard upgrades',
+      'Safety inspections and testing',
+      'Fault finding and repairs',
+      'Smoke alarm installation',
+      'Home automation systems'
+    ]
+  },
+  {
+    id: 'commercial',
+    title: 'Commercial Electrical Services',
+    description: 'Professional electrical services for businesses, offices, and commercial properties.',
+    image: '/images/commercial.jpg',
+    features: [
+      'Commercial electrical installations',
+      'Office fit-outs and renovations',
+      'Lighting systems and upgrades',
+      'Data and communications cabling',
+      'Emergency lighting systems',
+      'Preventative maintenance',
+      'Energy efficiency solutions',
+      'Compliance testing and certification'
+    ]
+  },
+  {
+    id: 'emergency',
+    title: 'Emergency Electrical Services',
+    description: 'Fast and reliable emergency electrical services available when you need them most.',
+    image: '/images/emergency.jpg',
+    features: [
+      '24/7 emergency response',
+      'Power outage troubleshooting',
+      'Electrical fault diagnosis',
+      'Circuit breaker repairs',
+      'Electrical safety hazard resolution',
+      'Storm damage repairs',
+      'Temporary power solutions',
+      'Emergency lighting repairs'
+    ]
+  },
+  {
+    id: 'lighting',
+    title: 'Lighting Solutions',
+    description: 'Enhance your space with professional lighting design and installation services.',
+    image: '/images/lighting.jpg',
+    features: [
+      'Interior lighting design',
+      'Exterior and landscape lighting',
+      'LED lighting upgrades',
+      'Smart lighting systems',
+      'Energy-efficient lighting solutions',
+      'Pendant and feature lighting installation',
+      'Security lighting',
+      'Sensor lighting installation'
+    ]
+  },
+  {
+    id: 'renovations',
+    title: 'Renovation & New Build Electrical',
+    description: 'Complete electrical solutions for renovations and new construction projects.',
+    image: '/images/renovations.jpg',
+    features: [
+      'New build electrical installations',
+      'Renovation electrical work',
+      'Electrical plan design and consultation',
+      'Compliance with building codes',
+      'Coordination with other contractors',
+      'Future-proofing electrical systems',
+      'Smart home pre-wiring',
+      'Final inspections and certification'
+    ]
+  },
+  {
+    id: 'inspections',
+    title: 'Electrical Inspections & Testing',
+    description: 'Comprehensive electrical inspections and testing to ensure safety and compliance.',
+    image: '/images/inspections.jpg',
+    features: [
+      'Pre-purchase electrical inspections',
+      'Electrical safety audits',
+      'Compliance testing',
+      'Fault finding and diagnostics',
+      'Thermal imaging inspections',
+      'RCD testing',
+      'Electrical certificate of compliance',
+      'Regular maintenance inspections'
+    ]
+  }
+];
+---
+
+<Layout title="Our Services | Chris Owen Electrical" description="Chris Owen Electrical offers a comprehensive range of electrical services for residential and commercial properties in Christchurch.">
+  <!-- Page Header -->
+  <div class="bg-primary text-white py-12">
+    <div class="container">
+      <h1 class="text-4xl font-bold mb-4">Our Services</h1>
+      <p class="text-xl max-w-3xl">
+        We provide a comprehensive range of electrical services for residential and commercial properties in Christchurch.
+      </p>
+    </div>
+  </div>
+
+  <!-- Services Overview -->
+  <section class="py-16 bg-base-100">
+    <div class="container">
+      <div class="grid grid-cols-1 gap-16">
+        {services.map((service, index) => (
+          <div id={service.id} class="scroll-mt-24">
+            <div class={`grid grid-cols-1 lg:grid-cols-2 gap-8 ${index % 2 === 1 ? 'lg:flex-row-reverse' : ''} ${
+              (service.id === 'residential' || service.id === 'emergency' || service.id === 'renovations') 
+                ? 'bg-primary text-white p-8 rounded-lg' 
+                : ''
+            }`}>
+              <div class="flex flex-col justify-center">
+                <h2 class="text-3xl font-bold mb-4 ${(service.id === 'residential' || service.id === 'emergency' || service.id === 'renovations') ? 'text-white' : 'text-gray-900'}">{service.title}</h2>
+                <p class="text-lg ${(service.id === 'residential' || service.id === 'emergency' || service.id === 'renovations') ? 'text-white' : 'text-gray-600'} mb-6">{service.description}</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-6">
+                  {service.features.map(feature => (
+                    <div class="flex items-start gap-2">
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 ${(service.id === 'residential' || service.id === 'emergency' || service.id === 'renovations') ? 'text-secondary' : 'text-primary'} mt-0.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      <span>{feature}</span>
+                    </div>
+                  ))}
+                </div>
+                
+                <div>
+                  <a href="/contact" class={`btn ${(service.id === 'residential' || service.id === 'emergency' || service.id === 'renovations') ? 'btn-secondary' : 'btn-primary'}`}>Request a Quote</a>
+                </div>
+              </div>
+              
+              <div class="rounded-lg overflow-hidden shadow-xl h-[400px]">
+                <LazyPlaceholder 
+                  text={service.title}
+                  bgColor={index % 2 === 0 ? "#E5E7EB" : "#D1D5DB"}
+                  textColor="#4B5563"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            </div>
+            
+            {index < services.length - 1 && (
+              <div class="border-b border-gray-200 my-16"></div>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-20 bg-primary text-white">
+    <div class="container text-center">
+      <h2 class="text-3xl font-bold mb-4">Need Electrical Services?</h2>
+      <p class="text-xl mb-8 max-w-2xl mx-auto">
+        Contact us today for a free quote on your electrical project. We're here to help with all your electrical needs.
+      </p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <a href="/contact" class="btn btn-secondary">Get a Free Quote</a>
+        <a href="tel:+64212633349" class="btn btn-outline border-white text-white hover:bg-white hover:text-primary">
+          Call: 021 263 3349
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout> 
