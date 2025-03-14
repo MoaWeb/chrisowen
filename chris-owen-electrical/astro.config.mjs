@@ -7,6 +7,9 @@ export default defineConfig({
   integrations: [tailwind()],
   site: 'https://MoaWeb.github.io',
   base: '/chrisowen',
-
+  build: {
+    assets: '_assets'
+  },
+  trailingSlash: 'always',
   compressHTML: true,
 });
